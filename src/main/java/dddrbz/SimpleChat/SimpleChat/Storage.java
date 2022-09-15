@@ -25,17 +25,21 @@ public class Storage {
         private String name;
         private String message;
     }
-
     public static class ChatEvent extends ComponentEvent<Div> {
 
         public ChatEvent() {
             super(new Div(), false);
         }
 
-    }
 
+    }
     public void addRecord(String user, String message) {
         messages.add(new ChatMessage(user, message));
+        eventBus.fireEvent(new ChatEvent());
+    }
+
+    public void addRecordUser(String user) {
+        messages.add(new ChatMessage("", user));
         eventBus.fireEvent(new ChatEvent());
     }
 
