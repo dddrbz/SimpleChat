@@ -85,8 +85,8 @@ public class MainView extends VerticalLayout {
         if (getUI().isPresent()) {
             UI ui = getUI().get();
             ui.getSession().lock();
+            ui.beforeClientResponse(grid, ctx -> grid.scrollToEnd());
             ui.access(() -> grid.getDataProvider().refreshAll());
-            ui.getPage().executeJs("$0._scrollToIndex($1)", grid, storage.size());
             ui.getSession().unlock();
         }
     }
